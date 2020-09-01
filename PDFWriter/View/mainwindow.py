@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'mainwindow.ui'
+## Form generated from reading UI file 'PDFWriterMain.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.0
 ##
@@ -14,6 +14,7 @@ from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
     QFontDatabase, QIcon, QKeySequence, QLinearGradient, QPalette, QPainter,
     QPixmap, QRadialGradient)
 from PySide2.QtWidgets import *
+from pip._internal import self_outdated_check
 
 
 class Ui_MainWindow(object):
@@ -21,27 +22,137 @@ class Ui_MainWindow(object):
         self.MainWin = MainWindow
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(753, 546)
-        icon = QIcon()
-        icon.addFile(u"Icons/edit-pdf-form.png", QSize(), QIcon.Normal, QIcon.Off)
-        MainWindow.setWindowIcon(icon)
+        MainWindow.resize(476, 435)
         self.actionE_xit = QAction(MainWindow)
         self.actionE_xit.setObjectName(u"actionE_xit")
-        self.actionE_xit.setShortcutContext(Qt.ApplicationShortcut)
-        self.actionE_xit.setMenuRole(QAction.QuitRole)
-        self.actionE_xit.setShortcutVisibleInContextMenu(True)
-        self.actionE_xit.triggered.connect(lambda:self.fileExit("Exit"))
-        
+        self.actionE_xit.triggered.connect(lambda:self.fileExit("Exit"))        
         self.action_About = QAction(MainWindow)
         self.action_About.setObjectName(u"action_About")
+        self.action_About.triggered.connect(lambda:self.fileExit("About")) 
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
+        self.widget = QWidget(self.centralwidget)
+        self.widget.setObjectName(u"widget")
+        self.widget.setGeometry(QRect(260, 350, 188, 30))
+        self.horizontalLayout = QHBoxLayout(self.widget)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.pushButton = QPushButton(self.widget)
+        self.pushButton.setObjectName(u"pushButton")
+
+        self.horizontalLayout.addWidget(self.pushButton)
+
+        self.pushButton_2 = QPushButton(self.widget)
+        self.pushButton_2.setObjectName(u"pushButton_2")
+
+        self.horizontalLayout.addWidget(self.pushButton_2)
+
+        self.widget1 = QWidget(self.centralwidget)
+        self.widget1.setObjectName(u"widget1")
+        self.widget1.setGeometry(QRect(20, 20, 411, 141))
+        self.formLayout = QFormLayout(self.widget1)
+        self.formLayout.setObjectName(u"formLayout")
+        self.formLayout.setLabelAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.formLayout.setContentsMargins(0, 0, 0, 0)
+        self.label = QLabel(self.widget1)
+        self.label.setObjectName(u"label")
+
+        self.formLayout.setWidget(0, QFormLayout.LabelRole, self.label)
+
+        self.lineEdit = QLineEdit(self.widget1)
+        self.lineEdit.setObjectName(u"lineEdit")
+
+        self.formLayout.setWidget(0, QFormLayout.FieldRole, self.lineEdit)
+
+        self.label_2 = QLabel(self.widget1)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setLayoutDirection(Qt.LeftToRight)
+        self.label_2.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.formLayout.setWidget(1, QFormLayout.LabelRole, self.label_2)
+
+        self.lineEdit_2 = QLineEdit(self.widget1)
+        self.lineEdit_2.setObjectName(u"lineEdit_2")
+
+        self.formLayout.setWidget(1, QFormLayout.FieldRole, self.lineEdit_2)
+
+        self.label_3 = QLabel(self.widget1)
+        self.label_3.setObjectName(u"label_3")
+
+        self.formLayout.setWidget(2, QFormLayout.LabelRole, self.label_3)
+
+        self.lineEdit_3 = QLineEdit(self.widget1)
+        self.lineEdit_3.setObjectName(u"lineEdit_3")
+
+        self.formLayout.setWidget(2, QFormLayout.FieldRole, self.lineEdit_3)
+
+        self.label_4 = QLabel(self.widget1)
+        self.label_4.setObjectName(u"label_4")
+
+        self.formLayout.setWidget(3, QFormLayout.LabelRole, self.label_4)
+
+        self.lineEdit_4 = QLineEdit(self.widget1)
+        self.lineEdit_4.setObjectName(u"lineEdit_4")
+
+        self.formLayout.setWidget(3, QFormLayout.FieldRole, self.lineEdit_4)
+
+        self.widget2 = QWidget(self.centralwidget)
+        self.widget2.setObjectName(u"widget2")
+        self.widget2.setGeometry(QRect(20, 190, 431, 141))
+        self.gridLayout = QGridLayout(self.widget2)
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.label_5 = QLabel(self.widget2)
+        self.label_5.setObjectName(u"label_5")
+        self.label_5.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.gridLayout.addWidget(self.label_5, 1, 0, 1, 1)
+
+        self.dateEdit = QDateEdit(self.widget2)
+        self.dateEdit.setObjectName(u"dateEdit")
+
+        self.gridLayout.addWidget(self.dateEdit, 1, 1, 1, 1)
+
+        self.label_6 = QLabel(self.widget2)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.gridLayout.addWidget(self.label_6, 1, 2, 1, 1)
+
+        self.dateEdit_2 = QDateEdit(self.widget2)
+        self.dateEdit_2.setObjectName(u"dateEdit_2")
+        self.dateEdit_2.setCalendarPopup(True)
+
+        self.gridLayout.addWidget(self.dateEdit_2, 1, 3, 1, 1)
+
+        self.label_7 = QLabel(self.widget2)
+        self.label_7.setObjectName(u"label_7")
+        self.label_7.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.gridLayout.addWidget(self.label_7, 2, 2, 1, 1)
+
+        self.dateEdit_3 = QDateEdit(self.widget2)
+        self.dateEdit_3.setObjectName(u"dateEdit_3")
+        self.dateEdit_3.setCalendarPopup(True)
+
+        self.gridLayout.addWidget(self.dateEdit_3, 2, 3, 1, 1)
+
+        self.radioButton = QRadioButton(self.widget2)
+        self.radioButton.setObjectName(u"radioButton")
+
+        self.gridLayout.addWidget(self.radioButton, 0, 1, 1, 1)
+
+        self.radioButton_2 = QRadioButton(self.widget2)
+        self.radioButton_2.setObjectName(u"radioButton_2")
+
+        self.gridLayout.addWidget(self.radioButton_2, 0, 3, 1, 1)
+
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 753, 22))
-        self.menu_File = QMenu(self.menubar)
-        self.menu_File.setObjectName(u"menu_File")
+        self.menubar.setGeometry(QRect(0, 0, 476, 22))
+        self.menu_file = QMenu(self.menubar)
+        self.menu_file.setObjectName(u"menu_file")
         self.menu_Help = QMenu(self.menubar)
         self.menu_Help.setObjectName(u"menu_Help")
         MainWindow.setMenuBar(self.menubar)
@@ -49,30 +160,42 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
-        self.menubar.addAction(self.menu_File.menuAction())
+        self.menubar.addAction(self.menu_file.menuAction())
         self.menubar.addAction(self.menu_Help.menuAction())
-        self.menu_File.addAction(self.actionE_xit)
+        self.menu_file.addAction(self.actionE_xit)
         self.menu_Help.addAction(self.action_About)
 
         self.retranslateUi(MainWindow)
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
-
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"PDFWriter", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.actionE_xit.setText(QCoreApplication.translate("MainWindow", u"E&xit", None))
 #if QT_CONFIG(shortcut)
-        self.actionE_xit.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+X", u"Ctrl+X"))
+        self.actionE_xit.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+X", None))
 #endif // QT_CONFIG(shortcut)
         self.action_About.setText(QCoreApplication.translate("MainWindow", u"&About", None))
-        self.menu_File.setTitle(QCoreApplication.translate("MainWindow", u"&File", None))
+#if QT_CONFIG(shortcut)
+        self.action_About.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+A", None))
+#endif // QT_CONFIG(shortcut)
+        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Create", None))
+        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Close", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"Employee Name :", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Badge :", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Extension :", None))
+        self.label_4.setText(QCoreApplication.translate("MainWindow", u"Title :", None))
+        self.label_5.setText(QCoreApplication.translate("MainWindow", u"Month :", None))
+        self.dateEdit.setDisplayFormat(QCoreApplication.translate("MainWindow", u"MMM", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"From :", None))
+        self.dateEdit_2.setDisplayFormat(QCoreApplication.translate("MainWindow", u"d/M/yy", None))
+        self.label_7.setText(QCoreApplication.translate("MainWindow", u"To :", None))
+        self.dateEdit_3.setDisplayFormat(QCoreApplication.translate("MainWindow", u"d/M/yy", None))
+        self.radioButton.setText(QCoreApplication.translate("MainWindow", u"Monthly Report", None))
+        self.radioButton_2.setText(QCoreApplication.translate("MainWindow", u"Day based report", None))
+        self.menu_file.setTitle(QCoreApplication.translate("MainWindow", u"&File", None))
         self.menu_Help.setTitle(QCoreApplication.translate("MainWindow", u"&Help", None))
     # retranslateUi
-    
     def fileExit(self,text):
         if text == "Exit":
             self.MainWin.close()
-        
-    
-
