@@ -15,6 +15,9 @@ from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
     QPixmap, QRadialGradient)
 from PySide2.QtWidgets import *
 from pip._internal import self_outdated_check
+from ViewModel.VM_mainWindow import VM_maindwindow
+from samba.dcerpc.messaging import rec
+from _datetime import datetime
 
 
 class Ui_MainWindow(object):
@@ -22,7 +25,7 @@ class Ui_MainWindow(object):
         self.MainWin = MainWindow
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(476, 435)
+        MainWindow.resize(476, 435)              
         self.actionE_xit = QAction(MainWindow)
         self.actionE_xit.setObjectName(u"actionE_xit")
         self.actionE_xit.triggered.connect(lambda:self.fileExit("Exit"))        
@@ -39,17 +42,19 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.pushButton = QPushButton(self.widget)
         self.pushButton.setObjectName(u"pushButton")
+        self.pushButton.clicked.connect(self.btnCreateClick)
 
         self.horizontalLayout.addWidget(self.pushButton)
 
         self.pushButton_2 = QPushButton(self.widget)
         self.pushButton_2.setObjectName(u"pushButton_2")
+        self.pushButton_2.clicked.connect(self.btnClose)
 
         self.horizontalLayout.addWidget(self.pushButton_2)
 
         self.widget1 = QWidget(self.centralwidget)
         self.widget1.setObjectName(u"widget1")
-        self.widget1.setGeometry(QRect(20, 20, 411, 141))
+        self.widget1.setGeometry(QRect(20, 20, 431, 141))
         self.formLayout = QFormLayout(self.widget1)
         self.formLayout.setObjectName(u"formLayout")
         self.formLayout.setLabelAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
@@ -61,7 +66,9 @@ class Ui_MainWindow(object):
 
         self.lineEdit = QLineEdit(self.widget1)
         self.lineEdit.setObjectName(u"lineEdit")
-
+        #self.lineEdit.textChanged.connect(self.lineEditTxtChange) 
+        self.lineEdit.returnPressed.connect(self.lineEditEnterKey)
+        self.lineEdit.setPlaceholderText("enter employee name")
         self.formLayout.setWidget(0, QFormLayout.FieldRole, self.lineEdit)
 
         self.label_2 = QLabel(self.widget1)
@@ -109,6 +116,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.label_5, 1, 0, 1, 1)
 
         self.dateEdit = QDateEdit(self.widget2)
+        self.dateEdit.setDate(QDate.currentDate())
         self.dateEdit.setObjectName(u"dateEdit")
 
         self.gridLayout.addWidget(self.dateEdit, 1, 1, 1, 1)
@@ -120,6 +128,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.label_6, 1, 2, 1, 1)
 
         self.dateEdit_2 = QDateEdit(self.widget2)
+        self.dateEdit_2.setDate(QDate.currentDate())
         self.dateEdit_2.setObjectName(u"dateEdit_2")
         self.dateEdit_2.setCalendarPopup(True)
 
@@ -132,6 +141,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.label_7, 2, 2, 1, 1)
 
         self.dateEdit_3 = QDateEdit(self.widget2)
+        self.dateEdit_3.setDate(QDate.currentDate())
         self.dateEdit_3.setObjectName(u"dateEdit_3")
         self.dateEdit_3.setCalendarPopup(True)
 
@@ -139,6 +149,7 @@ class Ui_MainWindow(object):
 
         self.radioButton = QRadioButton(self.widget2)
         self.radioButton.setObjectName(u"radioButton")
+        self.radioButton.setChecked(True)
 
         self.gridLayout.addWidget(self.radioButton, 0, 1, 1, 1)
 
@@ -159,13 +170,18 @@ class Ui_MainWindow(object):
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
-
+                
         self.menubar.addAction(self.menu_file.menuAction())
         self.menubar.addAction(self.menu_Help.menuAction())
         self.menu_file.addAction(self.actionE_xit)
         self.menu_Help.addAction(self.action_About)
 
         self.retranslateUi(MainWindow)
+        
+        # Adding Completer.        
+        self.vmwin = VM_maindwindow()
+        completer = QCompleter(self.vmwin.getNames())        
+        self.lineEdit.setCompleter(completer)
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
@@ -199,3 +215,56 @@ class Ui_MainWindow(object):
     def fileExit(self,text):
         if text == "Exit":
             self.MainWin.close()
+        elif text == "About" :
+            QMessageBox.about(self.MainWin, "PDFWriter", "PDFWriter to create overtime report.")
+    
+    def btnCreateClick(self):
+        
+        #checking for employee details
+        if len(self.lineEdit.text()) == 0:
+            createErr  = QMessageBox()
+            createErr.setIcon(createErr.Icon.Warning)
+            createErr.setText("Unable to create report, employee records not available.")   
+            createErr.setWindowTitle("PDFWriter Error...")     
+            createErr.exec_()            
+            return
+        
+        #get all date values from window
+        
+        date1 = self.dateEdit.date()
+        date2 = self.dateEdit_2.date()
+        date3 = self.dateEdit_3.date()
+        
+        dateToday = QDate.currentDate()
+        
+        print(date1.day(), date1.month(),date1.year())
+        print(date2.day(), date2.month(),date2.year())
+        print(date3.day(), date3.month(),date3.year())
+           
+        #setting up values to generate report based on option selected.        
+        if self.radioButton.isChecked() == True:  
+            self.vmwin.process4Report(date1.day(), date1.month(), date1.year(), date1.daysInMonth(), date1.month(), date1.year())          
+            print(date1.daysInMonth())           
+        elif self.radioButton_2.isChecked() == True:            
+            if date3 < date2 :
+                createErr  = QMessageBox()
+                createErr.setIcon(createErr.Icon.Warning)
+                createErr.setText("TO date is less than From date")   
+                createErr.setWindowTitle("PDFWriter Error...")     
+                createErr.exec_() 
+                return
+            self.vmwin.process4Report(date2.day(), date2.month(), date2.year(), date3.day(), date3.month(), date3.year())
+      
+        
+    def btnClose(self):        
+        self.MainWin.close()
+        
+    #def lineEditTxtChange(self):
+        #print("Text Change")
+        
+    def lineEditEnterKey(self):        
+        rec = self.vmwin.getRecords(self.lineEdit.text())
+        #print(rec.Badge)        
+        self.lineEdit_2.setText("{}".format(rec.Badge))
+        self.lineEdit_3.setText("{}".format(rec.Ext))
+        self.lineEdit_4.setText("{}".format(rec.Title))
